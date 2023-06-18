@@ -1,17 +1,17 @@
+from argument_parser import OUTPUT_VERBOSITY_LEVEL_DEBUG
+
+
 def make_predictions(model, features):
-    return model.predict(features)
+    predictions = model.predict(features)
+
+    if OUTPUT_VERBOSITY_LEVEL_DEBUG:
+        print(f"\nPredictions:\n{predictions}")
+
+    return predictions
 
 
 def classify(predictions, threshold):
     # Classify the data based on a threshold
     classified_predictions = [1 if pred > threshold else 0 for pred in predictions]
 
-    # Identify the indices of ARP poisoning packets
-    arp_poisoning_indices = [i for i, pred in enumerate(classified_predictions) if pred == 1]
-
-    return arp_poisoning_indices
-
-
-
-
-
+    return classified_predictions
