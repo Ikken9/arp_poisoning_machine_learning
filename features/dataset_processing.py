@@ -1,4 +1,4 @@
-from argument_parser import OUTPUT_VERBOSITY_LEVEL_DEBUG
+from argument_parser import OUTPUT_VERBOSITY_LEVEL
 from scapy.all import *
 from scapy.layers.l2 import ARP
 import tensorflow as tf
@@ -6,9 +6,12 @@ from sklearn.model_selection import train_test_split
 
 
 def read_pcap(filepath):
-    packets = PcapReader(filepath)
-    arp_packets = [pkt for pkt in packets if pkt.haslayer(ARP)]
-    return arp_packets
+    try:
+        packets = PcapReader(filepath)
+        arp_packets = [pkt for pkt in packets if pkt.haslayer(ARP)]
+        return arp_packets
+    except FileNotFoundError as e:
+        print("Error: ", e)
 
 
 def process_arp_pcap(packets):
@@ -45,7 +48,7 @@ def create_tensors(data, labels):
     features_tensor = tf.convert_to_tensor(data).numpy().astype(float)
     labels_tensor = tf.convert_to_tensor(labels).numpy().astype(float)
 
-    if OUTPUT_VERBOSITY_LEVEL_DEBUG:
+    if OUTPUT_VERBOSITY_LEVEL:
         print("\nFEATURES TENSOR PROPERTIES:")
         print(f"Size: {len(features_tensor)}")
         print(f"Shape: {features_tensor.shape}")

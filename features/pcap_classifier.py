@@ -1,10 +1,10 @@
-from argument_parser import OUTPUT_VERBOSITY_LEVEL_DEBUG
+from argument_parser import OUTPUT_VERBOSITY_LEVEL
 
 
 def make_predictions(model, features):
     predictions = model.predict(features)
 
-    if OUTPUT_VERBOSITY_LEVEL_DEBUG:
+    if OUTPUT_VERBOSITY_LEVEL:
         print(f"\nPredictions:\n{predictions}")
 
     return predictions

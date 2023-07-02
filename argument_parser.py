@@ -1,16 +1,17 @@
 import argparse
 
-OUTPUT_VERBOSITY_LEVEL_DEBUG = False
+OUTPUT_VERBOSITY_LEVEL = False
 
 
 def argument_parser():
-    global OUTPUT_VERBOSITY_LEVEL_DEBUG
+    global OUTPUT_VERBOSITY_LEVEL
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-n",
-        "--normal_pcap",
+        "-f",
+        "--files",
         type=str,
         default="",
+        nargs='+',
         required=True
     )
     parser.add_argument(
@@ -21,24 +22,16 @@ def argument_parser():
         required=True
     )
     parser.add_argument(
-        "-a",
-        "--anomaly_pcap",
-        type=str,
-        default="",
-        required=True
-    )
-    parser.add_argument(
         "-v",
-        "--verbosity",
-        type=str,
-        default='0',
+        "--verbose",
+        action="store_true",
         required=False,
-        choices=['0', '1']
+        help="Enable verbose output"
     )
 
     return parser.parse_known_args()
 
 
 args = argument_parser()[0]
-if args.verbosity:
-    OUTPUT_VERBOSITY_LEVEL_DEBUG = True
+if args.verbose:
+    OUTPUT_VERBOSITY_LEVEL = True

@@ -1,7 +1,7 @@
 import numpy
 import tensorflow as tf
 from scapy.layers.l2 import ARP
-from argument_parser import OUTPUT_VERBOSITY_LEVEL_DEBUG
+from argument_parser import OUTPUT_VERBOSITY_LEVEL
 
 
 def set_labels(data):
@@ -20,7 +20,8 @@ def set_labels(data):
             if arp_packet.psrc in arp_requests:
                 if arp_requests[arp_packet.psrc] != arp_packet.hwsrc:
                     labels[packet] = 1
-                    if OUTPUT_VERBOSITY_LEVEL_DEBUG:
+                    if OUTPUT_VERBOSITY_LEVEL:
+                        print("\n[TRAINING]")
                         print("\nARP poisoning detected!")
                         print("IP:", arp_packet.psrc)
                         print("Original MAC:", arp_requests[arp_packet.psrc])
