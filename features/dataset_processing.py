@@ -22,8 +22,7 @@ def process_arp_pcap(packets):
         source_mac = arp.hwsrc
         source_ip = arp.psrc
         target_mac = arp.hwdst
-        target_ip = arp.pdst
-        data.append([source_ip, source_mac, target_ip, target_mac])
+        data.append([source_ip, source_mac, target_mac])
     return data
 
 
@@ -32,8 +31,8 @@ def parse_pcap(packets):
         try:
             parsed_string = ''.join(char for char in input_string if char.isdigit())
             return float(parsed_string)
-        except ValueError:
-            print("[!] Error parsing data")
+        except ValueError as e:
+            print("[!] Error parsing data: ", e)
 
     parsed_data = []
     for pkt in packets:

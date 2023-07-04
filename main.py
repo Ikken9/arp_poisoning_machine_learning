@@ -20,7 +20,7 @@ def main():
             training_traffic_labels = set_labels(training_traffic)
             features_tensor, labels_tensor = create_tensors(parsed_training_traffic, training_traffic_labels)
             if OUTPUT_VERBOSITY_LEVEL:
-                print(f"File at index: {i}")
+                print(f"\nFile at index: {i}")
                 print("\nFeatures Tensor:\n")
                 print(features_tensor)
                 print("\nLabels Tensor:\n")
@@ -55,7 +55,7 @@ def main():
     # Load model
     loaded_model = load_model(MODEL_PATH)
 
-    # Make predictions
+    # Make predictions with input data tensor (features)
     predictions = make_predictions(loaded_model, i_features_tensors)
 
     # Classify

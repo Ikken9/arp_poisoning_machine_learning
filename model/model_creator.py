@@ -21,7 +21,6 @@ def set_labels(data):
                 if arp_requests[arp_packet.psrc] != arp_packet.hwsrc:
                     labels[packet] = 1
                     if OUTPUT_VERBOSITY_LEVEL:
-                        print("\n[TRAINING]")
                         print("\nARP poisoning detected!")
                         print("IP:", arp_packet.psrc)
                         print("Original MAC:", arp_requests[arp_packet.psrc])
@@ -35,8 +34,8 @@ def set_labels(data):
 def create_model():
     # Define the classifier model
     model = tf.keras.Sequential([
-        tf.keras.layers.Dense(16, activation='relu', input_shape=(4,)),
-        tf.keras.layers.Dense(16, activation='relu'),
+        tf.keras.layers.Dense(32, activation='relu', input_shape=(3,)),
+        tf.keras.layers.Dense(32, activation='relu'),
         tf.keras.layers.Dense(1, activation='sigmoid')
     ])
     # Compile the model
